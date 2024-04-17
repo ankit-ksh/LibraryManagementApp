@@ -1,0 +1,31 @@
+# Don't exclude any subdirectory structure
+!/*/
+
+tmp/
+.config/
+test_app/
+.notes/
+
+# Added to ignore python and flask files
+*.pyc
+__pycache__/
+
+
+instance/*
+pustakalaya/static/pustakalaya_data/books/*
+pustakalaya/static/user_data/*/*
+# Don't exclude directories themselves
+
+
+
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
+
+#Ignore Virtual environment
+.sangeet_app_venv/

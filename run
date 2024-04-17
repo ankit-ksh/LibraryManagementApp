@@ -1,0 +1,28 @@
+#! /usr/bin/bash
+
+# activate virtual environment
+if [ -d ".pustakalaya_app_venv" ]; then
+	source .pustakalaya_app_venv/bin/activate
+	echo "======> Virtual environment enabled"
+	pip freeze > requirements.txt
+	# set environment variables
+	echo "======> setting environment variables"
+	# this FLASK_APP variable will be used to run the app
+	export FLASK_APP=pustakalaya
+	export FLASK_RUN_PORT=5002
+
+	# now check what has to be done whether to open the shell or run the application
+	if [ -z "$1" ]; then
+		echo "======> Starting the application pustakalaya"
+		flask run --debug
+	elif [ "$1" == 'public' ];then
+		echo "======> Starting the application pustakalaya as Public. Any can access it on the internet"
+		export FLASK_RUN_HOST=0.0.0.0
+		flask run
+	elif [ "$1" == 'shell' ]; then
+		echo "======> Entering Flask shell"
+		flask shell
+	fi
+else
+	echo "======> No virtual environment set up. Please run setup first"
+fi

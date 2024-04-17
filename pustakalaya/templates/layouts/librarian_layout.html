@@ -1,0 +1,37 @@
+{% extends 'layouts/base_layout.html' %}
+{% set user_type_navbrand_subscript="Admin" %}
+
+
+<!-- Dropdown of user profile photo -->
+{% block role_specific_info %}
+
+
+{% endblock %}
+
+
+<!-- Extra left navigation links for the Admin -->
+{% block extra_left_nav_options %}
+<li class="nav-item">
+  <a class="nav-link {{dashboard_link}}" href="/librarian/dashboard">Dashboard</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link {{book_requests_link}}" href="/librarian/book_requests">Book Requests</a>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle {{more}}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    More
+  </a>
+  <ul class="dropdown-menu">
+    <li><a class="nav-link" href="/librarian/book/upload">Upload a Book</a></li>
+    <li><a class="nav-link" href="/librarian/author/overview">Author Management</a></li>
+  </ul>
+</li>
+
+{% endblock extra_left_nav_options %}
+
+
+
+{% block other_html %}
+{{ super() }}
+{% endblock %}
+

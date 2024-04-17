@@ -1,0 +1,56 @@
+{% extends appropriate_layout %}
+{% from 'macros/general.html' import submit_form_icon_POST %}
+
+{% block page_title %}Test Page{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+
+
+{% block main %}
+
+{# Top level details, like name, cover image etc #}
+
+<div class="container">
+    <div class="row justify-content-center align-items-center border border-2 rounded-2 bg-success-subtle" style="height: 350px;">
+        <div class="col-3 text-center">
+            <img src="{{section.cover_image_path}}" style="width: 250px; height:250px; border-radius:5px;" alt="Section Image">
+        </div>
+        <div class="col">
+            <div class="h2">
+                {% block page_name %}
+                    {{section.name.capitalize()}}
+                {% endblock %}
+            </div>
+            <div>{{section.books | length}} Books</div>
+            <div class="hstack gap-3 lead py-2">
+                {% block extra_options %}{% endblock %}
+            </div>
+        </div>
+    </div>    
+</div>
+
+
+{# Books list #}
+
+<div class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1">
+        <h2>Books</h2>
+    </div>
+    {% if books %}
+        {% for book in books %}
+            {% include 'book/real_book_listing.html' %}
+        {% endfor %}
+        <a style="width: 100px;" class="btn btn-success btn-sm rounded-2 p-2 m-2 d-inline-block text-decoration-none" href="/music/all/{{main_category}}/{{section.id}}">
+            Show all
+        </a>
+    {% else %}
+        <div class="lead text-center mt-5" style="min-height: 5rem;">
+            No Books
+        </div>
+    {% endif %}
+</div>
+{% block any_relevant_things %}{% endblock %}
+
+{% endblock %}

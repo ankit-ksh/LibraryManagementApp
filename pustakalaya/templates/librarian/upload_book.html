@@ -1,0 +1,59 @@
+{% extends appropriate_layout %}
+
+{% block main %}
+
+<div class="container-fluidq" style="width: 70%;">
+    <div class="col-md-6 mx-auto">
+        <form class="form-control vstack gap-2" action="/librarian/book/upload" method="post" enctype="multipart/form-data">
+            <div class="hstack px-3 py-5 bg-success-subtle text-white rounded-2 sangeet-background">
+                <div class="h3 text-center">
+                    Upload Book
+                </div>
+                <div class="ms-auto">
+                    <button type="submit" class="btn btn btn-success">Upload</button>
+                </div>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" name="book_name" id="book_name" name="book_name" placeholder="book_name" type="text" required>
+                <label class="form-label" for="book_name">Book Name</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" name="isbn_no" id="isbn_no" name="isbn_no" placeholder="isbn_no" type="text" required>
+                <label class="form-label" for="author_name">ISBN Number</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" name="publisher" id="publisher" name="publisher" placeholder="publisher" type="text" required>
+                <label class="form-label" for="publisher">Publisher</label>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" name="number_of_pages" id="number_of_pages" name="number_of_pages" placeholder="number_of_pages" type="number" required>
+                <label class="form-label" for="number_of_pages">No of pages</label>
+            </div>
+            <!-- hidden input for librarian_id -->
+            <input hidden name="librarian_id" value="{{current_user.id}}" type="text">
+            <select name="author_id" class="form-select form-select-lg ">
+                <option selected>Author</option>
+                {% for author in authors %}
+                    <option value="{{author.id}}">{{author.name}}</option>
+                {% endfor %}
+            </select>
+            <select name="section_id" class="form-select form-select-lg ">
+                <option selected value="None">Assign Section</option>
+                {% for section in sections %}
+                    <option value="{{section.id}}">{{section.name}}</option>
+                {% endfor %}
+            </select>
+            <div class="border border-light-subtle p-2 rounded-2">
+                <label for="book_file" class="form-label">book File</label>
+                <input class="form-control" name="file" type="file" id="book_file" required>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" style="height: 300px;" name="description" placeholder="description" id="description"></textarea>
+                <label for="description">Description</label>  
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock main %}

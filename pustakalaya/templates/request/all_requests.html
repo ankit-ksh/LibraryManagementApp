@@ -1,0 +1,8 @@
+{% extends 'request/all_requests_template.html' %}
+{% from 'macros/general.html' import show_content_overview with context %}
+
+{% block user_specific_content %}
+{% if current_user.role == 'librarian' %}
+    {{show_content_overview(contents=recent_issued_requests, category='request', subcategory='issued', content_listing_template='request/real_request_listing.html', color='success')}}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+<div class="row gap-3 align-items-center p-2 bordered rounded m-1 song-row">
+    <div class="custom-index-col">
+        <span><i class="bi bi-journal text-primary"></i></span>
+    </div>
+    <div class="col text-truncate underline_on_hover">
+        <a href="/book/{{content.book.id}}">
+            {{content.book.name}}
+        </a>
+    </div>
+    
+    <div class="col hstack text-center ms-auto">
+        {# for everyone #}
+        <div>
+            {% if content.status == 'pending' %}
+                Requested at {{content.request_time}}
+            {% elif content.status == 'issued' %}
+                Issued at {{content.issue_time}}
+            {% elif content.status == 'revoked' %}
+                Returned at {{content.return_time}}
+            {% elif content.status == 'rejected' %}
+                Rejected at {{content.rejection_time}}
+            {% endif %}
+
+        </div>
+
+        <!-- User specific options will be included here -->
+        {% block context_specific_details %}{% endblock %}
+
+
+    </div>
+</div>

@@ -1,0 +1,18 @@
+#! /usr/bin/bash
+
+# setting up virtual environment
+if [ -d ".pustakalaya_app_venv" ]; then
+	echo "Virtual environment already setup. Run the script run to start the app"
+else
+	echo "No virtual environment set up. Setting up Virtual environment. Please ensure Python and pip is installed"
+	python -m venv .pustakalaya_app_venv
+	echo
+	echo "Activating virtual environment"
+	source .pustakalaya_app_venv/bin/activate
+	echo
+	echo "Now installing all packages listed in requirements.txt"
+	pip3 install -r requirements.txt
+	echo
+	echo "All set up. Now run the script run to start the app"
+fi
+

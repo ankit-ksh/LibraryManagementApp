@@ -1,0 +1,49 @@
+{% extends appropriate_layout %}
+{% from 'macros/general.html' import submit_form_icon_POST %}
+{% block page_title %}Test Page{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+
+{% block main %}
+<div style="min-height: 35rem;" class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1">
+        <h2>{{subcategory}}</h2>
+        <div class="ms-auto">
+            <nav class="hstack">
+                    <div class="page-items me-3">
+                    {{ pagination.first }} - {{ pagination.last }} of {{ pagination.total }}
+                  </div>
+                  <div class="pagination my-auto">
+                    <ul class="pagination">
+                        {% for page in pagination.iter_pages() %}
+                            {% if page %}
+                                    {% if page != pagination.page %}
+                                        <li class="page-item"><a class="page-link" href="{{ url_for('general.home', page=page) }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><strong class="page-link text-black">{{ page }}</strong></li>
+                                    {% endif %}
+                            {% else %}
+                                <span class=ellipsis>…</span>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                  </div>
+            </nav>        
+        </div>
+    </div>
+    {% if pagination.items %}
+        {% for content in pagination %}
+            {% include content_listing_template %}
+        {% endfor %}
+    {% else %}
+        <div class="lead text-center" style="min-height: 5rem;margin-top: 6rem">
+            No {{subcategory}} {{category.capitalize()}}s <br><br>
+            <a href="/{{category}}/my_requests" class="btn btn-primary">Go to {{category}}s page</a>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

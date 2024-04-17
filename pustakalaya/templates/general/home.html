@@ -1,0 +1,39 @@
+{% extends appropriate_layout %}
+{% set home_link = 'active' %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+
+{% block main %}
+
+<div class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1">
+        <h2>Recommended Songs</h2>
+    </div>
+    
+    <div class="m-2 hstack gap-3 overflow-auto">
+        {% for i in range(6) %}
+            <div>
+                {% include 'music/track/track_card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <br><br>
+
+    <div class="nav nav-tabs m-1">
+        <h2>Recommended Albums</h2>
+    </div>
+    <div class="m-2 hstack gap-3 overflow-auto">
+        {% for i in range(6) %}
+            <div>
+                {% include 'music/album/album_card.html' %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock %}

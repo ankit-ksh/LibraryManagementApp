@@ -1,0 +1,39 @@
+{% extends 'section/section_overview_page.html' %}
+{% from 'macros/general.html' import submit_form_icon_GET %}
+
+{% block extra_options %}
+    {# If the user is a librarian, give them the ability to edit and delete the section #}
+    {% if current_user.role == 'librarian' %}
+    <button style="border: none; background: none; outline:none; cursor: pointer; padding: 0;" class="d-inline" type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rename">
+        <i class="bi bi-pencil text-decoration-none"></i>
+    </button>
+
+    <div class="modal" id="rename" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Section</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/section/modify/rename" method="post">
+                <div class="modal-body">
+                    <input hidden type="text" name="playlist_id" value="{{section.id}}">
+                    <div>
+                        <label class="form-label" for="new_name">Name</label>
+                        <input class="form-control" id="name" name="name" value="{{section.name}}" type="text" placeholder="Name" required> <br>
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" style="height: 100px;" name="description" placeholder="Description" id="description">{{section.description}}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+    {{submit_form_icon_GET("bi-trash", data={'section_id':section.id}, url="/section/modify/delete")}}
+
+    {% endif %}
+{% endblock %}

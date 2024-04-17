@@ -1,0 +1,56 @@
+{% extends appropriate_layout %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<!-- Notes: I've put m-2 almost everywhere in form fields to make things separate and beautiful -->
+{% block main %}
+<!-- main content. Inside this there a two columns both of which are cards for extra customisability -->
+  <div class="container p-4 pt-sm-5">
+    <div class="row align-items-center justify-content-evenly">
+      <!-- some description -->
+      <div class="col card bg-black text-white" style="min-height: 500px;">
+        <div class="card-body">
+          <h2 class="card-title">Join Pustakalaya</h2>
+          Forever Learning!
+        </div>
+        <img class="card-img w-50 m-3 mb-4" src="../../static/pustakalaya_data/branding/book_symbol.png">
+      </div>
+
+      <!-- registration form -->
+      <!-- custom style below -->
+      <div class="col-lg-4"> 
+        <form action="/register" method="post" class="vstack gap-2">
+          <div class="text-center">
+            <h1>Sign up</h1>
+          </div>  
+          <div class="form-floating">
+            <input class="form-control" id="username" name="user_name" placeholder="username" type="text" required>
+            <label class="form-label" for="username">Username</label>
+          </div>
+          
+          <div class="hstack gap-2">
+            <div class="form-floating">
+                <input class="form-control" id="first_name" name="first_name" placeholder="First Name" type="text" required>
+                <label class="form-label" for="first_name">First Name</label>
+            </div>
+            <div class="form-floating">
+              <input class="form-control" id="last_name" name="last_name" placeholder="Last Name" type="text">
+              <label class="form-label" for="last_name">Last Name <em style="font-size: 0.6em;">(Optional)</em></label> 
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <input class="form-control" type="password" placeholder="Password" id="pwd" name="password" required>
+            <label class="form-label" for="pwd">Password</label>
+          </div>
+          
+          <button class="btn btn-dark btn-lg">Register</button>
+          <span>Already a user? <a href="/login">Sign in</a></span>
+          {% set flash_message_links={'Go to Login':'/login'} %}
+          {% include 'includes/general/simple_flash_message.html' %}
+        </form>  
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

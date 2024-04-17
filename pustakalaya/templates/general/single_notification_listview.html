@@ -1,0 +1,35 @@
+<div class="row gap-3 justify-content-evenly align-items-center p-2 bordered rounded m-1 song-row">
+    <div class="custom-index-col">
+        <span class="to-be-hidden-element">
+            <i class="bi bi-music-note-beamed"></i>
+        </span>
+        <span class="hidden-element"><i class="bi bi-play-circle-fill"></i></span>
+    </div>
+    <div class="col-2 text-truncate underline_on_hover">
+        <a href="/music/player/{{notification.id}}">
+            {{notification.name}}
+        </a>
+    </div>
+    <div class="col text-truncate underline_on_hover">
+        {{notification.artist_name}}
+    </div>
+    <div class="col-2 hstack gap-3 text-center">
+        <div>
+            {{submit_form_icon_POST("bi-hand-thumbs-up hidden-element", data={'notification_id':1}, url="/test")}}
+        </div>
+        <div>
+            {{submit_form_icon_POST("bi-hand-thumbs-down hidden-element", data={'notification_id':1}, url="/test")}}
+        </div>
+        <!-- User specific options will be included here -->
+        {% block user_specific_options %}{% endblock %}
+        <!-- Include music based options like remove from album and playlist -->
+        {% block music_specific_options %}{% endblock %}
+        <div class="dropdown">
+            <!-- Here's just the trigger button for showing the modal to save the playlist. The actual modal is appended below becuase keeping everthing (button and modal) doesn't work -->
+            <div class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical hidden-element"></i>
+            </div>
+            </ul>
+        </div>
+    </div>
+</div>

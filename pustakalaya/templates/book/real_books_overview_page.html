@@ -1,0 +1,74 @@
+{% extends 'music/music_overview_page.html' %}
+{% from 'macros/general.html' import  submit_form_icon_GET %}
+
+
+
+{# extra options for a specific page and user #}
+{% block extra_options %}
+
+{# If the collection type is playlist #}
+{% if (music_collection.type == 'playlist') and (music_collection.is_user_owner) %}
+    <button style="border: none; background: none; outline:none; cursor: pointer; padding: 0;" class="d-inline" type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rename">
+        <i class="bi bi-pencil text-decoration-none"></i>
+    </button>
+
+    <div class="modal" id="rename" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Rename Playlist</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/playlist/modify/rename" method="post">
+                <div class="modal-body">
+                    <input hidden type="text" name="playlist_id" value="{{content.id}}">
+                    <div>
+                        <label class="form-label" for="new_name">New name</label>
+                        <input class="form-control" id="new_name" name="new_name" value="{{content.name}}" type="text" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+    {{submit_form_icon_GET("bi-trash", data={'playlist_id':content.id}, url="/playlist/modify/delete")}}
+
+
+
+{# If the collection type is album #}
+{% elif (music_collection.type == 'album') and (music_collection.is_user_owner) %}
+    <button style="border: none; background: none; outline:none; cursor: pointer; padding: 0;" class="d-inline" type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rename">
+        <i class="bi bi-pencil text-decoration-none"></i>
+    </button>
+
+    <div class="modal" id="rename" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modify Album</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/album/modify/rename" method="post">
+                <div class="modal-body">
+                    <input hidden type="text" name="album_id" value="{{content.id}}">
+                    <div>
+                        <label class="form-label" for="new_name">New name</label>
+                        <input class="form-control" id="new_name" name="new_name" value="{{content.name}}" type="text" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+        </div>
+    </div>
+    {{submit_form_icon_GET("bi-trash", data={'album_id':content.id}, url="/album/modify/delete")}}
+
+{% endif %}
+{% endblock %}

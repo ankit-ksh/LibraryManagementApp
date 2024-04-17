@@ -1,0 +1,72 @@
+{% extends 'book/general_book_page.html' %}
+
+
+{% block book_block %}
+{% if (current_user.role == 'user' and (book in current_user.currently_issued_books)) or current_user.role == 'librarian' %}
+    <embed src="{{ url_for('book.server', item='pdf', book_id=book.id) }}" width="100%" height="600px" type="application/pdf">
+{% else %}
+    <p class="card-text">{{book.description}}</p>
+{% endif %}
+
+{% endblock %}
+
+
+{% block user_specific_options %}
+
+{# First list the possible actions for the current usre #}
+{% if current_user.role == 'user' %}
+    {% if book in current_user.currently_issued_books %}
+        <span class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#return_and_feedback_model">Return Book</span>
+    {% elif book in current_user.pending_issue_books %}
+        <a class="btn btn-sm btn-primary" href="/request/cancel_request/{{book.id}}">Cancel Request</a>
+    {% else %}
+        <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modal-for-book_request">
+            Request Book
+        </button>
+    {% endif %}
+    <!-- Modal for confirmation of return book-->
+    <div class="modal fade" id="return_and_feedback_model" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Are you sure?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                You'll lose access to this book.
+                <form method="post" action="/request/return_book/{{book.id}}">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Give rating from 1 to 5.</label>
+                            <input required type="number" min="1" max="5" class="form-control" id="rating" name="rating">
+                        </div>
+                        <div class="mb-3">
+                            <textarea cols="100" class="form-control" placeholder="Leave your comment here" id="floatingTextarea" name="comment"></textarea>
+                            <label for="floatingTextarea"></label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
+                        <button type="submit" class="btn btn-danger">Return Book</button> 
+                    </div>        
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% elif current_user.role == 'librarian' %}
+<div>
+    <a class="btn btn-sm btn-primary" href="/librarian/book/edit/{{book.id}}">Edit Book</a>
+    <a class="btn btn-sm btn-primary" href="/librarian/book/delete/{{book.id}}">Delete Book</a>
+</div>
+{% endif %}
+
+
+
+
+{% endblock %}

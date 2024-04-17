@@ -1,0 +1,29 @@
+{% extends appropriate_layout %}
+
+{% block main %}
+
+
+<div class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1 mb-5">
+        <h2 class="mt-2">Notifications</h2>
+        <div class="ms-auto underline_on_hover hstack gap-3">
+            <a class="btn btn-secondary" href="/playlist/create" class="lead ms-auto">Read</a>
+        </div>
+    </div>
+
+    {% if notifcations %}
+        {% for single_notification_data in notifications %}
+            {% set notification = single_notification_data['notification'] %}
+            {% include notification_listing_template %}
+        {% endfor %}
+        <a style="width: 100px;" class="btn btn-success btn-sm rounded-2 p-2 m-2 d-inline-block text-decoration-none" href="/music/all/{{main_category}}/{{content.id}}">
+            Show all
+        </a>
+    {% else %}
+        <div class="lead text-center mt-5" style="min-height: 5rem;">
+            No unread notifications
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

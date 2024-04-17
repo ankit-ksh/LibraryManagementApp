@@ -1,0 +1,27 @@
+<div class="row gap-3 align-items-center p-2 bordered rounded m-1 song-row">
+    <div class="custom-index-col">
+        <span><i class="bi bi-hdd-rack text-primary"></i></span>
+    </div>
+    <div class="col-2 text-truncate underline_on_hover">
+        <a href="/section/{{section.id}}">
+            {{section.name}}
+        </a>
+    </div>
+    <div class="col-2 hstack gap-3 text-center">
+        <div>
+            {{submit_form_icon_POST("bi-pencil hidden-element", data={'section_id':section.id}, url="/section/edit")}}
+        </div>
+        <div>
+            {{submit_form_icon_POST("bi-trash hidden-element", data={'section_id':section.id}, url="/section/delete")}}
+        </div>
+        <!-- User specific options will be included here -->
+        {% block user_specific_options %}{% endblock %}
+        <!-- Include sections based options like remove from album and collection -->
+        {% block sections_specific_options %}{% endblock %}
+    </div>
+    <div class="custom-duration-col ms-auto d-inline">
+        {{section.books | length}}
+    </div>
+</div>
+
+

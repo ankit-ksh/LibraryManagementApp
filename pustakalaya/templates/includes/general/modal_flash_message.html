@@ -1,0 +1,87 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes my-2 list-unstyled">
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <!-- Bootstrap modal -->
+                    <div class="modal" tabindex="-1" id="errorModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: rgba(255, 0, 0, 0.408);">
+                                    <h5 class="modal-title text-white">Error</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ message }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    {% if flash_message_links %}
+                                        {% for entry in flash_message_links %}
+                                            <a class="btn btn-primary" href="{{flash_message_links[entry]}}">{{entry}}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% elif category == 'success' %}
+                    <!-- Bootstrap modal -->
+                    <div class="modal" tabindex="-1" id="errorModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: rgba(0, 128, 0, 0.515);">
+                                    <h5 class="modal-title text-white">Success</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ message }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    {% if flash_message_links %}
+                                        {% for entry in flash_message_links %}
+                                            <a class="btn btn-primary" href="{{flash_message_links[entry]}}">{{entry}}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% elif category == 'info' %}
+                    <!-- Bootstrap modal -->
+                    <div class="modal" tabindex="-1" id="errorModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color: rgba(255, 255, 0, 0.489);">
+                                    <h5 class="modal-title">Info</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>{{ message }}</p>
+                                </div>
+                                <div class="modal-footer">
+                                    {% if flash_message_links %}
+                                        {% for entry in flash_message_links %}
+                                            <a class="btn btn-primary" href="{{flash_message_links[entry]}}">{{entry}}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Okay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                    <!-- JavaScript to show the modal -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                            errorModal.show();
+                        });
+                    </script>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}

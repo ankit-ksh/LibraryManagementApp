@@ -1,0 +1,20 @@
+<svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .bg {
+            background-color: rgb(46, 255, 185);
+        }
+        .heavy {
+            color: white;
+            font: bold 90px cursive;
+            fill: teal;
+        }
+        .small {
+            color: white;
+            font: italic 30px serif;
+        }
+    </style>
+
+<rect width="100%" height="100%" fill="white"/>
+<text x="6" y="90%" class="heavy bg">IL</text>  
+<text x="120" y="90%" class="small bg">TUNES</text>
+</svg>

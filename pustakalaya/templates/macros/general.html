@@ -1,0 +1,115 @@
+{% macro submit_form_button_POST(label, data, url, color, size) %}
+    <form action="{{url}}" method="post">
+    {% for entry in data %}
+            <input type="hidden" name="{{entry}}" value="{{ data[entry] }}">
+    {% endfor %}
+    <button class="btn btn-{{size}} btn-{{color}}" type="submit">{{label}}</button>
+    </form>
+{% endmacro %}
+
+{% macro submit_form_icon_POST(icon_class, data, url) %}
+    <form action="{{url}}" method="post">
+    {% for entry in data %}
+            <input type="hidden" name="{{entry}}" value="{{ data[entry] }}">
+    {% endfor %}
+    <button type="submit hidden" style="border: none; background: none; outline:none; cursor: pointer; padding: 0;">
+        <i type="submit" class="bi {{icon_class}}"></i>
+    </button>
+    </form>
+{% endmacro %}
+
+
+
+{% macro submit_form_button_GET(label, data, url, color, size) %}
+    <form action="{{url}}" method="get">
+    {% for entry in data %}
+            <input type="hidden" name="{{entry}}" value="{{ data[entry] }}">
+    {% endfor %}
+    <button class="btn btn-{{size}} btn-{{color}}" type="submit">{{label}}</button>
+    </form>
+{% endmacro %}
+
+{% macro submit_form_icon_GET(icon_class, data, url) %}
+    <form action="{{url}}" method="get">
+    {% for entry in data %}
+            <input type="hidden" name="{{entry}}" value="{{ data[entry] }}">
+    {% endfor %}
+    <button type="submit hidden" style="border: none; background: none; outline:none; cursor: pointer; padding: 0;">
+        <i type="submit" class="bi {{icon_class}}"></i>
+    </button>
+    </form>
+{% endmacro %}
+
+
+
+
+{% macro show_books_overview(type, books, color) %}
+
+{# Approved requests #}
+<div class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1 mb-4">
+        <h2 class="text-{{color}}">{{type.capitalize()}} requests</h2>
+        <div class="ms-auto underline_on_hover hstack gap-3">
+            <a href="/book/all/{{type}}" class="lead ms-auto">All {{type.capitalize()}} Requests</a>
+        </div>
+    </div>
+
+    {% if books %}
+        <div style="min-height: 11rem;">
+            {% for book in books %}
+                {% include book_listing_template %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="lead text-center" style="min-height: 5rem; margin-top: 6rem">
+            No {{type}} Requests <br><br>
+            <a href="/book/all" class="btn btn-primary">Explore</a>
+        </div>
+    {% endif %}
+    <br><br>
+
+</div>
+
+{% endmacro %}
+
+
+
+{% macro show_content_overview(contents, category, content_listing_template, color, subcategory='', links='', overview_height='') %}
+
+{% if not overview_height %}
+{% set overview_height='11rem' %}
+{% endif %}
+
+
+{# Content Overview #}
+<div class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1 mb-4">
+        <h2 class="text-{{color}}">{{subcategory.capitalize()}} {{category}}s</h2>
+        <div class="ms-auto underline_on_hover hstack gap-3">
+            {% if links %}
+                {% for link_name in links %}
+                    <a href="{{links.get(link_name)}}" class="lead ms-auto">{{link_name}}</a>
+                {% endfor %}
+            {% else %}
+                <a href="/{{category}}/all/{{subcategory}}" class="lead ms-auto">All {{subcategory.capitalize()}} {{category}}s</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if contents %}
+        <div style="min-height: {{overview_height}};">
+            {% for content in contents %}
+                {% include content_listing_template %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="lead text-center" style="min-height: 5rem; margin-top: 6rem">
+            No {{category}} {{subcategory}} <br><br>
+            <a href="/book/all" class="btn btn-primary">Explore</a>
+        </div>
+    {% endif %}
+    <br><br>
+
+</div>
+
+{% endmacro %}

@@ -1,0 +1,40 @@
+{% extends appropriate_layout %}
+
+{% block main %}
+
+<div class="container">
+        <form class="col-md-6 mx-auto form-control vstack gap-2" action="/section/create" method="post" enctype="multipart/form-data">
+            <div class="hstack px-3 py-5 bg-success-subtle text-white rounded-2 sangeet-background">
+                <div class="h3 text-center">
+                    Create Section
+                </div>
+                <div class="ms-auto">
+                    <button type="submit" class="btn btn btn-success">Create</button>
+                </div>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" id="section_name" name="section_name" placeholder="section name" type="text" required>
+                <label class="form-label" for="section_name">Section name</label>
+            </div>
+            <div class="form-floating">
+                <textarea class="form-control" style="height: 100px;" name="description" placeholder="description" id="description"></textarea>
+                <label for="description">Description</label>  
+            </div>
+            <!-- hidden input for curator_id -->
+            <input hidden name="curator_id" value="{{current_user.id}}" type="text">
+            <div class="form-control">
+                <fieldset>
+                    <legend class="border border-2 rounded-3 bg-primary-subtle text-center">Select Books to add to the section</legend>
+                    {% for book in book_list %}
+                    <div>
+                        <input name="book_id_{{book.id}}" value="{{book.id}}" id="select_book_{{book.id}}" type="checkbox">
+                        <label class="form-label" for="select_book_{{book.id}}">{{book.name}}</label>
+                    </div>
+                    {% endfor %}
+                </fieldset>
+            </div>
+        </form>
+</div>
+
+
+{% endblock main %}

@@ -1,0 +1,22 @@
+{% extends appropriate_layout %}
+{% set my_requests_link = 'active' %}
+{% from 'macros/general.html' import submit_form_icon_POST %}
+{% from 'macros/general.html' import show_books_overview with context %}
+{% from 'macros/general.html' import show_content_overview with context %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+
+
+
+
+{% block main %}
+
+{{show_content_overview(contents=recent_pending_requests, category='request', subcategory='pending', content_listing_template='request/real_request_listing.html', color='warning')}}
+{{show_content_overview(contents=recent_rejected_requests, category='request', subcategory='rejected', content_listing_template='request/real_request_listing.html', color='danger')}}
+{{show_content_overview(contents=recent_revoked_accesses, category='request', subcategory='revoked', content_listing_template='request/real_request_listing.html', color='secondary')}}
+
+{% block user_specific_content %}{% endblock %}
+
+{% endblock %}

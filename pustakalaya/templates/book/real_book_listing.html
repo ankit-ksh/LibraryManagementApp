@@ -1,0 +1,58 @@
+{% extends 'book/general_book_listing.html' %}
+
+
+{% block user_specific_options %}
+{% if current_user.role == 'librarian' %}
+    <div type="button" data-bs-toggle="modal" data-bs-target="#modal-for-assign_section-{{book.id}}">
+        <i class="bi bi-plus-square text-decoration-none hidden-element"></i>
+    </div>
+    {% block modal_contents %}
+
+    <!-- Modal to save to the section dropdown-item -->
+    <div class="modal" id="modal-for-assign_section-{{book.id}}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="SavePlaylistModalLabel">Assign Section</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul style="list-style: none;">
+                    {% for section in sections %}
+                        {% if book in section.books %}
+                            {% set link_for_section="/section/modify/remove_book" %}
+                        {% else %}
+                            {% set link_for_section="/section/modify/append_book" %}
+                        {% endif %}
+                        <li class="ms-2">
+                            <form action={{link_for_section}} method="post">
+                                <input type="hidden" name="book_id" value="{{book.id}}">
+                                <input type="hidden" name="section_id" value="{{section.id}}">
+                                <button class="btn btn-sm btn-{{color}}" type="submit">
+                                    <div class="h6">
+                                        {% if book in section.books %}
+                                            <i class="bi bi-check-square"></i>
+                                        {% else %}
+                                            <i class="bi bi-square"></i>
+                                        {% endif %}
+                                        {{section.name}}
+                                    </div>
+                                </button>
+                            </form>
+                        </li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+            <a type="button" class="btn btn-primary" href="/section/create"><i class="bi bi-plus-lg"></i> New Section</a>
+            </div>
+        </div>  
+        </div>
+    </div>
+
+
+    {% endblock %}
+
+{% endif %}
+ 
+{% endblock %}

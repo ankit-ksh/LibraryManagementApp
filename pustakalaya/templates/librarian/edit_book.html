@@ -1,0 +1,61 @@
+{% extends appropriate_layout %}
+
+{% block main %}
+<div class="container-fluidq" style="width: 70%;">
+    <div class="col-md-6 mx-auto">
+        <div class="m-0 p-0">
+            {% include 'includes/general/modal_flash_message.html' %}
+        </div>
+        <form class="form-control vstack gap-2" action="/librarian/book/edit/{{book.id}}" method="post" enctype="multipart/form-data">
+            <div class="hstack px-3 py-5 bg-success-subtle text-white rounded-2 sangeet-background">
+                <div class="h3 text-center">
+                    Edit Book
+                </div>
+                <div class="ms-auto">
+                    <button type="submit" class="btn btn btn-success">Update</button>
+                </div>
+            </div>
+            <div class="form-floating">
+                <input class="form-control" name="name" value="{{book.name}}" id="book_title" placeholder="book_title" type="text" required>
+                <label class="form-label" for="book_title">Book Title</label>
+            </div>
+            <!-- hidden input for creator_id and book id -->
+            <input hidden name="book_id" value="{{book.id}}" type="text">
+            
+            <select name="add_author_id" class="form-select form-select-lg ">
+                <option selected value="None">Add Author</option>
+                {% for author in all_authors %}
+                    {% if book.author == author %}
+                        <option selected value="{{author.id}}">{{author.name}}</option>
+                    {% else %}
+                        <option value="{{author.id}}">{{author.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <select name="remove_author_id" class="form-select form-select-lg ">
+                <option selected value="None">Remove Author</option>
+                {% for author in book_authors %}
+                    {% if book.author == author %}
+                        <option selected value="{{author.id}}">{{author.name}}</option>
+                    {% else %}
+                        <option value="{{author.id}}">{{author.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <div class="border border-light-subtle p-2 rounded-2">
+                <label for="book_file" class="form-label">Book File</label>
+                <input class="form-control" name="file" value="/home/ankit/Music/" type="file" id="book_file">
+            </div>
+            <div class="form-floating">
+                {% if book.description %}
+                    <textarea class="form-control" style="height: 300px;" name="description" placeholder="description" id="description">{{book.description}}</textarea>
+                {% else %}
+                    <textarea class="form-control" style="height: 300px;" name="description" placeholder="description" id="description"></textarea>
+                {% endif %}
+                    <label for="description">Description</label>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock main %}

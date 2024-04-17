@@ -1,0 +1,36 @@
+div.bordered:not(:last-child) {
+    border-bottom: 1px solid grey;
+}
+
+.custom-index-col {
+    width: 3%; /* Adjust the percentage based on your preference */
+}
+
+.custom-duration-col {
+    width: 5%; /* Adjust the percentage based on your preference */
+}
+.hidden-element {
+    display: none;
+}
+
+.song-row:hover .hidden-element {
+    display: inline-block;
+}
+.song-row:hover .to-be-hidden-element {
+    display: none;
+}
+.song-row:hover {
+    background-color: aliceblue;
+}
+
+
+
+/* for links */
+
+.underline_on_hover a {
+    text-decoration: none;
+    color: black;
+}
+.underline_on_hover a:hover {
+    text-decoration: underline;
+}

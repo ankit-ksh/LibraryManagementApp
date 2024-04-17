@@ -1,0 +1,85 @@
+<div class="row gap-3 justify-content-evenly align-items-center p-2 bordered rounded m-1 song-row">
+    <div class="custom-index-col">
+        <span><i class="bi bi-journal text-primary"></i></span>
+    </div>
+    <div class="col-2 text-truncate underline_on_hover">
+        <a href="/book/{{book.id}}">
+            {{book.name}}
+        </a>
+    </div>
+    <div class="col text-truncate underline_on_hover">
+        <a href="/books/genre/{{book.genre.id}}">{{book.genre.name}}</a>
+    </div>
+    <div class="col text-truncate underline_on_hover">
+        <a href="/books/language/{{book.language.id}}">{{book.language.name}}</a>
+    </div>
+    <div class="col-2 hstack gap-3 text-center">
+        <div class="hidden-element cursor-pointer" data-bs-toggle="modal" data-bs-target="#modal-for-book_details-{{book.id}}">
+            <i class="bi bi-info-circle text-decoration-none"></i>
+        </div>
+        <!-- User specific options will be included here -->
+        {% block user_specific_options %}{% endblock %}
+        <!-- Include books based options like remove from album and collection -->
+        {% block books_specific_options %}{% endblock %}
+        <div class="dropdown">
+            <!-- Here's just the trigger button for showing the modal to save the collection. The actual modal is appended below becuase keeping everthing (button and modal) doesn't work -->
+            <div class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical hidden-element"></i>
+            </div>
+            <ul class="dropdown-menu">
+                {% if book.section %}
+                    <li><a class="dropdown-item" href="/section/{{book.section.id}}"><i class="bi bi-disc"></i> Go to Section</a></li>
+                {% endif %}    
+            </ul>
+        </div>
+    </div>
+    <div class="custom-duration-col text-end">
+        {{book.duration}}
+    </div>
+</div>
+
+
+<div class="modal" id="modal-for-book_details-{{book.id}}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="SavePlaylistModalLabel">{{book.name}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <ul style="list-style: none;">
+                <li>
+                    <strong>Authors</strong> :
+                        {% if book.authors %}
+                            {% for author in book.authors %}
+                                {{author.name}}
+                            {% endfor %}
+                        {% endif %}
+                </li>
+                <li>
+                    <strong>ISBN No.</strong> : {{book.isbn_no}}
+                </li>
+                <li>
+                    <strong>Publisher</strong> : {{book.publisher}}
+                </li>
+                <li>
+                    <strong>Upload date</strong> : {{book.upload_date}}
+                </li>
+                <li>
+                    <strong>Publish year</strong> : {{book.publish_year}}
+                </li>
+                <li>
+                    <strong>Description</strong> : {{book.description}}
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-primary" href="/book/{{book.id}}">Go to Book Page</a>
+        </div>
+    </div>  
+    </div>
+</div>
+
+
+
+{% block modal_contents %}{% endblock %}

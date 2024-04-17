@@ -1,0 +1,42 @@
+<div class="row gap-3 align-items-center p-2 bordered rounded m-1 song-row">
+    <div class="custom-index-col">
+        <span><i class="bi bi-person-fill text-primary"></i></span>
+    </div>
+    <div class="col-2 text-truncate underline_on_hover cursor-pointer">
+        <span data-bs-toggle="modal" data-bs-target="#modal-for-content_details-{{content.id}}">
+            {{content.name}}
+        </span>
+    </div>
+    <div class="col-2 hstack gap-3 ms-auto">
+        <div class="hidden-element cursor-pointer" data-bs-toggle="modal" data-bs-target="#modal-for-content_details-{{content.id}}">
+            <i class="bi bi-info-circle text-decoration-none"></i>
+        </div>
+        <!-- User specific options will be included here -->
+        {% block user_specific_options %}{% endblock %}
+    </div>
+</div>
+
+
+<!-- Modal to save the collection dropdown-item -->
+<div class="modal" id="modal-for-content_details-{{content.id}}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="SavePlaylistModalLabel">Author - {{content.name}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <ul style="list-style: none;">
+                <li>
+                    Author name: {{content.name}}
+                </li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-primary" href="/content/{{content.id}}">All books by this author</a>
+        </div>
+    </div>  
+    </div>
+</div>
+
+

@@ -1,0 +1,33 @@
+<div class="ms-auto me-3 underline_on_hover hstack gap-3">
+    {# modal for filtering based on artist or album or genre #}
+    {# trigger button #}
+    <button style="border: none; background: none; outline:none; cursor: pointer; padding: 0;" class="d-inline" type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rename">
+        <i class="bi bi-funnel text-decoration-none lead"></i>
+    </button>
+    {# modal #}
+    <div class="modal" id="rename" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Filter by</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>            
+            <div class="modal-body">
+                <div class="border p-2 rounded-2">
+                    <span>Author: </span>
+                    <form action="/search" method="get">
+                        <input hidden name="filter_by" value='author' type="text">
+                        <input hidden name="q" value={{query_term}} type="text">
+                        <select name="author_id" style="width: 200px;">
+                            {% for author in authors %}
+                                <option value="{{author.id}}">{{author.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

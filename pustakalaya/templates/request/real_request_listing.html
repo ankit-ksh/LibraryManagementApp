@@ -1,0 +1,45 @@
+{% extends 'request/general_request_listing.html' %}
+{% from 'macros/general.html' import submit_form_button_GET %}
+
+{% block context_specific_details %}
+
+
+{# If the current user is a librarian #}
+{% if current_user.role == 'librarian' %}
+
+<div class="col-2 text-truncate underline_on_hover">
+    <a href="/user/{{content.user.id}}">
+        {{content.user.name}}
+    </a>
+</div>
+<div class="col underline_on_hover">
+    <div class="hstack gap-5">
+        {% if content.status == 'pending' %}
+            <div class="hstack gap-2 ms-auto">
+                {{submit_form_button_GET(label='Approve', data={'issue_request_id': content.request_id}, url='/librarian/request/approve', color='success', size='sm')}}
+                {{submit_form_button_GET(label='Reject', data={'issue_request_id': content.request_id}, url='/librarian/request/reject', color='danger', size='sm')}}
+            </div>
+        {% elif content.status == 'issued' %}
+            <div class="hstack gap-2 ms-auto">
+                {{submit_form_button_GET(label='Revoke Access', data={'issue_request_id': content.request_id}, url='/librarian/request/revoke_access', color='danger', size='sm')}}
+            </div>
+
+        {% endif %}
+    </div>
+
+</div>
+
+
+{% elif current_user.role == 'user' %}
+{% if content.status == 'pending' %}
+    <div class="col underline_on_hover ms-5">
+            <a class="btn btn-sm btn-danger text-decoration-none" href="/request/cancel_request/{{content.book.id}}">Cancel request</a>
+    </div>
+{% endif %}
+
+
+
+{% endif %}
+
+
+{% endblock %}

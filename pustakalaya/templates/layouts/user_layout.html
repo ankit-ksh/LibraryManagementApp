@@ -1,0 +1,14 @@
+{% extends 'layouts/base_layout.html' %}
+{% set user_type="user" %}
+
+
+
+
+{% block extra_left_nav_options %}
+    <li class="nav-item">
+        <a class="nav-link {{my_library_link}}" href="/request/all/issued">My Library</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{my_requests_link}}" href="/request/my_requests">My Requests</a>
+    </li>
+{% endblock extra_left_nav_options %}

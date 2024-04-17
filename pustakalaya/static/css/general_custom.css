@@ -1,0 +1,55 @@
+/* body {
+    background-color: rgb(36, 72, 72);
+
+} */
+
+
+/* .mainnav .active {
+    color: red!important;
+} */
+
+
+/* .hero-area{
+	background-image: url('../static/images/general/hero_image.jpg');
+	min-height: 400px;
+	background-position: 20% 10%;
+	background-size: 100%;
+} */
+
+.show-profile-pic {
+	padding: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	:hover{
+		cursor: pointer;
+	}
+}
+
+
+.text-area{
+	height: 503px;
+	
+}
+.sangeet-background{
+	background-image: url('../static/branding/music_symbols.png');
+	background-position: 1% 93%;
+	background-size: 100%;
+}
+
+.big-profile-picture{
+	width: 300px;
+	height: 300px;
+	border-radius: 5px;
+}
+
+/* Custom CSS to hide the dropdown arrow */
+.dropdown-toggle::after {
+	display: none;
+}
+
+.cursor-pointer{
+	cursor: pointer;
+  }
+
+

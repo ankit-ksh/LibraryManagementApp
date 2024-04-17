@@ -1,0 +1,17 @@
+{% extends appropriate_layout %}
+{% set my_library_link = 'active' %}
+{% from 'macros/book.html' import show_books_overview %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+
+
+
+
+{% block main %}
+
+{{show_books_overview(type='approved', color='success', books=approved_access_books)}}
+
+
+{% endblock %}

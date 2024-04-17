@@ -1,0 +1,21 @@
+{% extends appropriate_layout %}
+
+{% set more = 'active' %}
+{% from 'macros/general.html' import submit_form_icon_POST %}
+{% from 'macros/general.html' import show_books_overview with context %}
+{% from 'macros/general.html' import show_content_overview with context %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+
+
+
+
+
+{% block main %}
+
+{{show_content_overview(contents=authors, category='author', content_listing_template='content_listing_template/author/author_listing.html', color='warning', links=links, overview_height='25rem')}}
+
+
+{% endblock %}

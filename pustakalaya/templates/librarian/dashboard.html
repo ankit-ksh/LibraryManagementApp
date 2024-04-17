@@ -1,0 +1,59 @@
+{% extends appropriate_layout %}
+{% set dashboard_link='active' %}
+
+
+{% block main %}
+
+
+<div style="min-height: 15rem;" class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1">
+        <h2>Pustakalaya statistics</h2>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>        
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in pustakalaya_data %}
+                <tr>
+                    <td>Total {{item.capitalize() + 's'}}</td>
+                    <td>{{pustakalaya_data[item]['total_in_number']}}</td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div style="min-height: 15rem;" class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1">
+        <h2>Book issue data</h2>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Statistic</th>
+                    <th>Value</th>        
+                </tr>
+            </thead>
+            <tbody>
+                {{all_requests_data}}
+                {% for item in all_requests_data %}
+                <tr>
+                    <td>Total {{item.capitalize()}}</td>
+                    <td>{{all_requests_data[item]}}</td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

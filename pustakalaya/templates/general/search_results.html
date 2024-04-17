@@ -1,0 +1,36 @@
+{% extends appropriate_layout %}
+{% from 'macros/general.html' import submit_form_icon_POST %}
+{% from 'macros/general.html' import submit_form_button_GET %}
+{% block extra_css %}
+    <link rel="stylesheet" href="/static/css/music_listing_pages.css">
+{% endblock %}
+
+{% block main %}
+{# Track search results #}
+<div style="min-height: 15rem;" class="container mt-5 mb-3 pt-3 pb-2 border border-1 rounded-2 border">
+    <div class="nav nav-tabs m-1">
+        <h2>
+            Search results for "{{query_term}}" in Books
+            {% if filtered_by %}
+                - {{filtered_by}}
+            {% endif %}
+        </h2>
+            {% include 'general/filter_search_results.html' %}
+    </div>
+    {% if books %}
+        {% for book in books %}
+            {% include 'book/real_book_listing.html' %}
+        {% endfor %}
+    {% else %}
+        <div class="lead text-center mt-5" style="min-height: 5rem;">
+            No Books
+        </div>
+    {% endif %}
+</div>
+ 
+
+
+
+
+{% endblock %}
+
