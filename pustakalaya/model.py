@@ -18,19 +18,6 @@ collection_books = db.Table(
     db.Column("book_id", db.ForeignKey('book.id'), primary_key=True)
 )
 
-# Association table for many to many relationship between users and books table - storing likes
-book_likes = db.Table(
-    "book_likes",
-    db.Column("user_id", db.ForeignKey('user.id'), primary_key=True),
-    db.Column("book_id", db.ForeignKey('book.id'), primary_key=True)
-)
-
-# Association table for many to many relationship between users and books table - storing dislikes
-book_dislikes = db.Table(
-    "book_dislikes",
-    db.Column("user_id", db.ForeignKey('user.id'), primary_key=True),
-    db.Column("book_id", db.ForeignKey('book.id'), primary_key=True)
-)
 
 # Association table for many to many relationship between Book and Author table
 class BookAuthor(db.Model):
@@ -102,10 +89,6 @@ class User(UserMixin, db.Model):
     ## ----------------------Relationships -------------------------
     # establish relationship with Collection table One to Many
     collections = db.relationship('Collection', back_populates='curator', cascade="all, delete")
-    # establish relationship with Book table for Knowing the likes of a user and also to know about the users who liked a particular song - Many to Many
-    liked_books = db.relationship('Book', secondary=book_likes, back_populates='liked_by')
-    # establish relationship with Book table for Knowing the dislikes of a user and also to know about the users who liked a particular song - Many to Many
-    disliked_books = db.relationship('Book', secondary=book_dislikes, back_populates='disliked_by')
     # establishing the relationship with user table and book_issue_request table to get the book requests related to a user
     all_requests = db.relationship('BookIssueRequest', back_populates='user')
     # relationship with Feedback table - Many to Many
@@ -209,11 +192,6 @@ class Book(db.Model):
     # establish relationship with Language table - Many to One
     language_id = db.Column(db.Integer, db.ForeignKey('language.id'), nullable=True)
     language = db.relationship('Language', back_populates='books')
-    # establish relationship with Book table for Knowing the likes of a user and also to know about the users who liked a particular song - Many to Many
-    liked_by = db.relationship('User', secondary=book_likes, back_populates='liked_books')
-    # establish relationship with Book table for Knowing the likes of a user and also to know about the users who liked a particular song - Many to Many
-    disliked_by = db.relationship('User', secondary=book_dislikes, back_populates='disliked_books')
-    # establish relationship with Author - Many to Many
     authors = db.relationship('Author', secondary='book_author', back_populates='books')
     @hybrid_property
     def cover_image(self):
