@@ -9,7 +9,7 @@ if [ -d ".pustakalaya_app_venv" ]; then
 	echo "======> setting environment variables"
 	# this FLASK_APP variable will be used to run the app
 	export FLASK_APP=pustakalaya
-	export FLASK_RUN_PORT=5002
+	export FLASK_RUN_PORT=5000
 
 	# now check what has to be done whether to open the shell or run the application
 	if [ -z "$1" ]; then

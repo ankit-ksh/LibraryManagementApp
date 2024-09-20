@@ -17,12 +17,12 @@
             </div>
             <form action="/section/modify/rename" method="post">
                 <div class="modal-body">
-                    <input hidden type="text" name="playlist_id" value="{{section.id}}">
+                    <input hidden type="text" name="section_id" value="{{section.id}}">
                     <div>
                         <label class="form-label" for="new_name">Name</label>
-                        <input class="form-control" id="name" name="name" value="{{section.name}}" type="text" placeholder="Name" required> <br>
+                        <input class="form-control" id="new_name" name="new_name" value="{{section.name}}" type="text" placeholder="Name" required> <br>
                         <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control" style="height: 100px;" name="description" placeholder="Description" id="description">{{section.description}}</textarea>
+                        <textarea class="form-control" style="height: 100px;" name="new_description" placeholder="Description" id="new_description">{{section.description}}</textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

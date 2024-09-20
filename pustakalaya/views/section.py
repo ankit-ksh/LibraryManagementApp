@@ -102,8 +102,8 @@ def modify_section(action):
         section.books.remove(book)
         db.session.commit()
     elif section and (action == 'rename'):
-        new_name = request.form.get('name')
-        new_description = request.form.get('description')
+        new_name = request.form.get('new_name')
+        new_description = request.form.get('new_description')
         section.name = new_name
         section.description = new_description
     elif section and (action == 'delete'):

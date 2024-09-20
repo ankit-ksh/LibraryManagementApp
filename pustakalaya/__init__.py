@@ -1,5 +1,6 @@
 import os
-from flask import Flask
+from flask import Flask, current_app
+from oauthlib.oauth2 import WebApplicationClient
 from flask_login import current_user
 from pustakalaya.extensions import db
 from pustakalaya.extensions import login_manager
@@ -15,12 +16,19 @@ from pustakalaya.views import auth, book, general, librarian, section, request
 def create_app(test_config=None):
     # creating the flask app as an instance of the Flask Class
     app = Flask(__name__, instance_relative_config=True)
+    app.app_context().push()
     app.config.from_mapping(
         SECRET_KEY='dev',
         SQLALCHEMY_DATABASE_URI = "sqlite:///pustakalaya.sqlite3",
         SQLALCHEMY_TRACK_MODIFICATIONS = True, # False in production to increase performance, True in development for reloading without restarting the server
         # TEMPLATES_AUTO_RELOAD = True
-        UPLOAD_FOLDER = "pustakalaya/static/pustakalaya_data/books"
+        UPLOAD_FOLDER = "pustakalaya/static/pustakalaya_data/books",
+		# Configuration
+		GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None),
+		GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None),
+		GOOGLE_DISCOVERY_URL = (
+			"https://accounts.google.com/.well-known/openid-configuration"
+			)
     )
 
     # ensure instance folder exists
@@ -34,6 +42,10 @@ def create_app(test_config=None):
     # from . import models
     with app.app_context():
         db.create_all()
+
+    # OAuth 2 client setup
+    client = WebApplicationClient(current_app.config.get('GOOGLE_CLIENT_ID'))
+
 
     # Intialising and configuring flask login
     login_manager.init_app(app)
